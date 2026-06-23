@@ -32,6 +32,8 @@ public:
     PluginConfig& Get() { return m_cfg; }
     const PluginConfig& Get() const { return m_cfg; }
 
+    static std::wstring GetDllName();
+
     // 历史文件路径
     std::wstring GetHistoryFilePath() const;
 
@@ -39,7 +41,7 @@ private:
     std::wstring  m_dir;
     PluginConfig  m_cfg;
     std::wstring  IniPath() const;
-
+    
     static std::wstring ReadIniString(const std::wstring& section, const std::wstring& key,
                                       const std::wstring& def, const std::wstring& path);
     static int         ReadIniInt(const std::wstring& section, const std::wstring& key,

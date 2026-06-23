@@ -15,7 +15,7 @@
                 "/utf-8",
                 "/DUNICODE",
                 "/D_UNICODE",
-                "/Fe${workspaceFolder}\\x64\\release\\MyPlugin.dll",  // DLL 输出
+                "/Fe${workspaceFolder}\\x64\\release\\MijiaPower_1.dll",  // DLL 输出
                 "/Fo${workspaceFolder}\\x64\\release\\intermediate\\",        // .obj 进子文件夹
                 "/Fd${workspaceFolder}\\x64\\release\\intermediate\\",        // .pdb 进子文件夹
 

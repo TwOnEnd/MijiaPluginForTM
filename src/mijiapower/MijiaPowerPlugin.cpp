@@ -42,6 +42,14 @@ const wchar_t* CPowerItem::GetItemName() const {
     return L"米家插座功率";
 }
 
+const wchar_t* CPowerItem::GetItemId() const {
+    if(m_itemId.empty()) {
+        m_itemId = L"MijiaPowerW_" + ConfigManager::GetDllName();
+    }
+    return m_itemId.c_str();
+    //return L"MijiaPowerW";
+}
+
 const wchar_t* CPowerItem::GetItemLableText() const {
     auto& cfg = ConfigManager::Instance().Get();
     if(cfg.showLabel)

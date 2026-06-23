@@ -2,13 +2,13 @@
 #include "../pch.h"
 #include "PluginConfig.h"
 
-#if 0
+
 std::wstring ConfigManager::IniPath() const {
-    return m_dir + L"\\MijiaPower1.ini";
+    return m_dir + L"\\" + GetDllName() + L".ini";
 }
-#else
+
 // 静态函数 - 在文件作用域
-static HMODULE GetCurrentModule() {
+HMODULE GetCurrentModule() {
     HMODULE hModule = NULL;
     // 使用静态函数的地址
     GetModuleHandleExW(
@@ -20,38 +20,32 @@ static HMODULE GetCurrentModule() {
     return hModule;
 }
 
-std::wstring ConfigManager::IniPath() const {
+std::wstring ConfigManager::GetDllName() {
     wchar_t dllPath[MAX_PATH] = {};
     HMODULE hDll = GetCurrentModule();
 
-    if(hDll == NULL) {
-        // 保底：获取EXE路径
+    if (hDll == NULL) {
         GetModuleFileNameW(NULL, dllPath, MAX_PATH);
     } else {
         GetModuleFileNameW(hDll, dllPath, MAX_PATH);
     }
 
-    // 处理路径
     std::wstring fullPath(dllPath);
+    
+    // 提取文件名（含扩展名）
     size_t lastSlash = fullPath.find_last_of(L"\\/");
     std::wstring fileName = (lastSlash != std::wstring::npos)
         ? fullPath.substr(lastSlash + 1)
         : fullPath;
 
+    // 去掉扩展名
     size_t dotPos = fileName.find_last_of(L".");
-    if(dotPos != std::wstring::npos) {
+    if (dotPos != std::wstring::npos) {
         fileName = fileName.substr(0, dotPos);
     }
-    fileName += L".ini";
-
-    size_t dirPos = fullPath.find_last_of(L"\\/");
-    std::wstring dir = (dirPos != std::wstring::npos)
-        ? fullPath.substr(0, dirPos)
-        : L"";
-
-    return dir + L"\\" + fileName;
+    
+    return fileName;
 }
-#endif
 
 std::wstring ConfigManager::GetHistoryFilePath() const {
     return m_dir + L"\\MijiaPower_history.json";

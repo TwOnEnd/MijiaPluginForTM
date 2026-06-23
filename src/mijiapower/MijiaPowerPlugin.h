@@ -14,13 +14,14 @@ public:
     void SetPlugin(class CMijiaPowerPlugin* plugin) { m_plugin = plugin; }
 
     const wchar_t* GetItemName()            const override;
-    const wchar_t* GetItemId()              const override { return L"MijiaPowerW"; }
+    const wchar_t* GetItemId()              const override;
     const wchar_t* GetItemLableText()       const override;
     const wchar_t* GetItemValueText()       const override;
     const wchar_t* GetItemValueSampleText() const override { return L"9999.9W"; }
 
 private:
     class CMijiaPowerPlugin* m_plugin = nullptr;
+    mutable std::wstring m_itemId;
     mutable std::wstring m_valueText;
     mutable std::wstring m_labelText;
 };
